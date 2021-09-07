@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { colors } from '../../utils/theme';
 import { IS_ANDROID } from '../../utils/constants';
+import { DEVICE_WIDTH } from '../../utils/dimensions';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -9,6 +10,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightBlue,
     flexDirection: 'row',
     height: IS_ANDROID ? 50 : 40,
+  },
+  image: {
+    alignItems: 'center',
+    minHeight: 60,
+    width: DEVICE_WIDTH,
+    justifyContent: 'center',
+  },
+  logo: {
+    height: 30,
+    aspectRatio: 1,
+    width: DEVICE_WIDTH,
   },
   sideButtonContainer: {
     height: 40,

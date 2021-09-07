@@ -2,16 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, FlatList, TouchableOpacity, View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 
-import { DefaultButton, DefaultHeader, Separator, Typography } from '../../components';
+import { DefaultHeader, Separator, Typography } from '../../components';
 import styles from './styles';
 
 import { getAllBooks } from '../../services';
 import { goToScreen } from '../../navigation/controls';
 import { colors } from '../../utils/theme';
-
-const goToExperimentalScreen = () => {
-  goToScreen('Experimental');
-};
 
 const ListItem = ({ id, title }: { id: number; title: string }) => (
   <TouchableOpacity
@@ -32,7 +28,7 @@ const renderFlatlistItem = ({ item }: { item: Book }) => (
   <ListItem id={item.id} title={item.title} />
 );
 
-const HomeScreen = () => {
+const BooksScreen = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -83,8 +79,6 @@ const HomeScreen = () => {
       <DefaultHeader showBackButton={false} showImage={true} />
       <View style={styles.mainContainer}>
         <Separator size={20} />
-        <DefaultButton text="Go To Experimental Screen" onPress={goToExperimentalScreen} />
-        <Separator size={20} />
         <FlatList
           keyExtractor={flatlistKeyExtractor}
           refreshing={loading}
@@ -100,4 +94,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default BooksScreen;

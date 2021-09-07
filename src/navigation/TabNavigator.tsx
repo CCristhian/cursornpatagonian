@@ -3,7 +3,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { RouteProp } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { HistoryScreen } from '../screens';
+import { BooksScreen, CharacterScreen, HistoryScreen } from '../screens';
 import HomeStack from './HomeStack';
 
 import { colors } from '../utils/theme';
@@ -17,6 +17,12 @@ const getIconName = (routeName: string) => {
   switch (routeName) {
     case 'HomeTab':
       iconName = 'home';
+      break;
+    case 'BooksTab':
+      iconName = 'menu-book';
+      break;
+    case 'CharacterTab':
+      iconName = 'badge';
       break;
     case 'HistoryTab':
       iconName = 'history';
@@ -33,11 +39,20 @@ const navigatorScreenOptions = ({ route }: { route: Route }) => ({
   tabBarIcon: ({ focused, color, size }: { focused: boolean; color: string; size: number }) => {
     const iconName = getIconName(route.name);
     const iconSize = focused ? size * 1.2 : size;
-    return <MaterialIcon name={iconName} size={iconSize} color={color} />;
+    return (
+      <MaterialIcon
+        name={iconName}
+        size={iconSize}
+        color={color}
+        style={focused ? { transform: [{ rotateZ: '10deg' }] } : {}}
+      />
+    );
   },
   tabBarAllowFontScaling: false,
-  tabBarActiveTintColor: colors.mainOrange,
-  tabBarInactiveTintColor: colors.lightBlue,
+  tabBarInactiveBackgroundColor: colors.primaryColor,
+  tabBarActiveBackgroundColor: colors.primaryColor,
+  tabBarActiveTintColor: colors.white,
+  tabBarInactiveTintColor: colors.secondaryColor,
   tabBarLabelStyle: {
     fontSize: 12,
   },
@@ -47,7 +62,12 @@ const navigatorScreenOptions = ({ route }: { route: Route }) => ({
 const TabNavigator = () => {
   return (
     <Tab.Navigator screenOptions={navigatorScreenOptions}>
-      <Tab.Screen name="HomeTab" component={HomeStack} options={{ title: 'Home' }} />
+      <Tab.Screen name="BooksTab" component={BooksScreen} options={{ title: 'Books' }} />
+      <Tab.Screen
+        name="CharacterTab"
+        component={CharacterScreen}
+        options={{ title: 'Characters' }}
+      />
       <Tab.Screen name="HistoryTab" component={HistoryScreen} options={{ title: 'History' }} />
     </Tab.Navigator>
   );
