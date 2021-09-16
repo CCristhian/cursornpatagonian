@@ -2,39 +2,24 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../utils/theme';
 
 const styles = StyleSheet.create({
-  flatList: {
-    flex: 1,
-    width: '100%',
-  },
   flatlistContent: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   mainContainer: {
     alignItems: 'center',
     flex: 1,
     width: '100%',
   },
-  listItemContainer: {
-    alignItems: 'center',
-    backgroundColor: colors.white,
-    borderColor: 'transparent',
-    borderRadius: 10,
-    borderWidth: 1,
-    height: 50,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    width: '100%',
+  scrollView: {
+    flex: 1,
+    borderRadius: 20,
+    backgroundColor: '#F9F9F9',
+    width: '90%',
+    height: '90%',
   },
-  listItemContainerShadow: {
-    shadowColor: colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-
-    elevation: 2,
+  columnWrapperStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   wholeScreenCenter: {
     alignItems: 'center',

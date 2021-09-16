@@ -7,6 +7,7 @@ import { BooksScreen, CharacterScreen, HistoryScreen } from '../screens';
 import HomeStack from './HomeStack';
 
 import { colors } from '../utils/theme';
+import { StyleSheet, View } from 'react-native';
 
 type Route = RouteProp<Record<string, object | undefined>, string>;
 
