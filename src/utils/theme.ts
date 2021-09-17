@@ -5,4 +5,6 @@ export const colors = {
   primaryColor: '#7F0909',
   secondaryColor: '#FFC500',
   white: '#FFFFFF',
+  background: '#E5E5E5',
+  secondaryBackground: '#F9F9F9',
 };

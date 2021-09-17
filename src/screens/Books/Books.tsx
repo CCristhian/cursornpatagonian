@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { ActivityIndicator, FlatList, TextInput, View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { DefaultHeader, Separator, Typography, Card, DefaultButton } from '../../components';
 import styles from './styles';
@@ -22,8 +23,13 @@ const renderFlatlistItem = ({ item }: { item: Book }) => (
 const BooksScreen = () => {
   const [refreshFlag, setRefreshFlag] = useState<boolean>(false);
   const { books, loading, errorOccurred } = useBooksData(refreshFlag);
+  const [inputText, setInputText] = useState('');
 
   const netInfo = useNetInfo();
+
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(inputText.toLowerCase()),
+  );
 
   const toggleRefreshFlag = useCallback(() => {
     setRefreshFlag(!refreshFlag);
@@ -62,11 +68,24 @@ const BooksScreen = () => {
       <DefaultHeader showBackButton={false} showImage={true} />
       <View style={styles.mainContainer}>
         <Separator size={15} />
+        <View style={styles.searchBar}>
+          <MaterialIcon name="search" size={30} style={styles.icon} color={colors.primaryColor} />
+          <TextInput
+            allowFontScaling={false}
+            autoCapitalize="none"
+            autoCorrect={false}
+            placeholder="Search a Book..."
+            value={inputText}
+            onChangeText={setInputText}
+            style={styles.textInput}
+          />
+        </View>
+        <Separator size={10} />
         <Typography size={25} variant="bold" color={colors.primaryColor}>
           BOOKS
         </Typography>
-        <Separator size={15} />
-        <View style={styles.scrollView}>
+        <Separator size={10} />
+        <View style={styles.flatListStyle}>
           <Separator size={20} />
           <FlatList
             numColumns={2}
@@ -74,7 +93,7 @@ const BooksScreen = () => {
             keyExtractor={flatlistKeyExtractor}
             refreshing={loading}
             onRefresh={toggleRefreshFlag}
-            data={books}
+            data={filteredBooks}
             renderItem={renderFlatlistItem}
             ItemSeparatorComponent={Separator}
             columnWrapperStyle={styles.columnWrapperStyle}

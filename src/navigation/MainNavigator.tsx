@@ -8,7 +8,7 @@ import { BookDetailsScreen, ExperimentalScreen, InitializeScreen } from '../scre
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => (
-  <Stack.Navigator initialRouteName="Initialize" screenOptions={{ headerShown: false }}>
+  <Stack.Navigator initialRouteName="Initilize" screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Initilize" component={InitializeScreen} />
     <Stack.Screen name="AuthStack" component={AuthStack} />
     <Stack.Screen name="TabNavigator" component={TabNavigator} />

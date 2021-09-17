@@ -9,11 +9,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     width: '100%',
+    backgroundColor: colors.background,
   },
-  scrollView: {
+  flatListStyle: {
     flex: 1,
     borderRadius: 20,
-    backgroundColor: '#F9F9F9',
+    backgroundColor: colors.secondaryBackground,
     width: '90%',
     height: '90%',
   },
@@ -26,6 +27,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     width: '100%',
+  },
+  searchBar: {
+    flexDirection: 'row',
+    backgroundColor: colors.secondaryColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+  },
+  textInput: {
+    height: 40,
+    width: '70%',
+    paddingRight: 17,
+  },
+  icon: {
+    paddingHorizontal: 15,
+    paddingTop: 5,
+    height: 40,
   },
 });
 
