@@ -4,7 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { BooksScreen, CharacterScreen, HistoryScreen } from '../screens';
-import HomeStack from './HomeStack';
+import BooksStack from './BooksStack';
 
 import { colors } from '../utils/theme';
 import { StyleSheet, View } from 'react-native';
@@ -63,7 +63,7 @@ const navigatorScreenOptions = ({ route }: { route: Route }) => ({
 const TabNavigator = () => {
   return (
     <Tab.Navigator screenOptions={navigatorScreenOptions}>
-      <Tab.Screen name="BooksTab" component={BooksScreen} options={{ title: 'Books' }} />
+      <Tab.Screen name="BooksTab" component={BooksStack} options={{ title: 'Books' }} />
       <Tab.Screen
         name="CharacterTab"
         component={CharacterScreen}

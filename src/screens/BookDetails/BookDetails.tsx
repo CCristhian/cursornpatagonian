@@ -48,7 +48,7 @@ const BookDetailsScreen = ({ route }) => {
 
   return (
     <>
-      <DefaultHeader title={title} />
+      <DefaultHeader showBackButton={false} showImage={true} />
       <View style={styles.mainContainer}>
         <Typography size={18}>Book Detail Screen</Typography>
         <Separator />
