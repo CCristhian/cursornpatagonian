@@ -74,7 +74,8 @@ const BooksScreen = () => {
             allowFontScaling={false}
             autoCapitalize="none"
             autoCorrect={false}
-            placeholder="Search a Book..."
+            placeholder="Search a Book"
+            placeholderTextColor={colors.primaryColor}
             value={inputText}
             onChangeText={setInputText}
             style={styles.textInput}

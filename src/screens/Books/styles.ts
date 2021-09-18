@@ -39,6 +39,10 @@ const styles = StyleSheet.create({
     height: 40,
     width: '70%',
     paddingRight: 17,
+    fontFamily: 'Raleway-Bold',
+  },
+  placeholderStyle: {
+    fontFamily: 'Raleway-Regular',
   },
   icon: {
     paddingHorizontal: 15,
