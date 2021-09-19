@@ -11,13 +11,14 @@ interface Props {
   onPress?: () => void;
   text: string;
   width?: string;
+  textSize?: number;
   withBackground?: boolean;
 }
 
 //fijarse como hacer por si no recibo una URL de imagen
 // que hago si no recibo onPress
 
-const Card = ({ imageURL, onPress, text, width, withBackground }: Props) => {
+const Card = ({ imageURL, onPress, text, width, textSize, withBackground }: Props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -28,7 +29,9 @@ const Card = ({ imageURL, onPress, text, width, withBackground }: Props) => {
       ]}
     >
       <Image source={{ uri: imageURL }} style={styles.image} />
-      <Typography numberOfLines={2}>{text}</Typography>
+      <Typography numberOfLines={2} align="center" variant="bold" size={textSize}>
+        {text}
+      </Typography>
       <Separator size={10} />
     </TouchableOpacity>
   );
@@ -37,6 +40,7 @@ const Card = ({ imageURL, onPress, text, width, withBackground }: Props) => {
 Card.defaultProps = {
   onPress: {},
   width: '43%',
+  textSize: 13,
   withBackground: true,
 };
 export default Card;

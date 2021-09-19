@@ -10,15 +10,20 @@ import { goToScreen } from '../../navigation/controls';
 import { colors } from '../../utils/theme';
 import useBooksData from './hooks/useBooksData';
 
-const ListItem = ({ id, title, cover }: { id: number; title: string; cover: string }) => (
-  <Card onPress={() => goToScreen('BookDetails', { id, title })} text={title} imageURL={cover} />
+const ListItem = ({ item, title, cover }: { item: Book; title: string; cover: string }) => (
+  <Card onPress={() => goToScreen('BookDetails', item)} text={title} imageURL={cover} />
 );
 
 const flatlistKeyExtractor = (item: Book) => `${item.id}`;
 
 const renderFlatlistItem = ({ item }: { item: Book }) => (
-  <ListItem id={item.id} title={item.title} cover={item.book_covers[0].URL} />
+  <ListItem item={item} title={item.title} cover={item.book_covers[0].URL} />
 );
+
+interface ResumeBook {
+  title: string;
+  coverURL: string;
+}
 
 const BooksScreen = () => {
   const [refreshFlag, setRefreshFlag] = useState<boolean>(false);
@@ -26,6 +31,10 @@ const BooksScreen = () => {
   const [inputText, setInputText] = useState('');
 
   const netInfo = useNetInfo();
+
+  let expandedBooks = books;
+  books.map((book) => (book.otherBooks = expandedBooks));
+  console.log(books[0].otherBooks);
 
   const filteredBooks = books.filter((book) =>
     book.title.toLowerCase().includes(inputText.toLowerCase()),
