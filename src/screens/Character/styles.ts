@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   listItem: {
     flexDirection: 'row',
-    padding: 2,
+    padding: 5,
     paddingLeft: 20,
     textAlign: 'center',
     alignItems: 'center',
