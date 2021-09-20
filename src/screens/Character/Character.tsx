@@ -44,6 +44,7 @@ interface AgrupedList {
 const CharacterScreen = () => {
   const [refreshFlag, setRefreshFlag] = useState<boolean>(false);
   const { characters, loading, errorOccurred } = useCharactersData(refreshFlag);
+  const [ refresh, setRefres] = useState<boolean>(false);
 
   const netInfo = useNetInfo();
 
@@ -96,17 +97,16 @@ const CharacterScreen = () => {
   });
 
   let mainCharacters: AgrupedList[] = [];
-  let refresh: boolean = false;
 
   const changeArrange = (index: number) => {
     switch (index) {
       case 1:
         mainCharacters = mainCharactersBySpecie;
-        refresh = !refresh;
+        setRefres(!refresh);
         break;
       case 2:
         mainCharacters = mainCharactersByGroup;
-        refresh = true;
+        setRefres(!refresh);
         break;
     }
   };
