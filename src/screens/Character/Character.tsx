@@ -1,14 +1,15 @@
 import React, { useCallback, useState } from 'react';
-import { ActivityIndicator, SectionList, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Modal, Pressable, SectionList, Text, TouchableOpacity, View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 
-import { DefaultButton, DefaultHeader, Separator, Typography } from '../../components';
+import { AlertModal, DefaultButton, DefaultHeader, Separator, Typography } from '../../components';
 import styles from './styles';
 
 import { goToScreen } from '../../navigation/controls';
 import { colors } from '../../utils/theme';
 import useCharactersData from './hooks/useCharacterData';
 import Character from '.';
+import { Function, jsxElement } from '@babel/types';
 
 const Item = ({ title }) => (
   <View style={styles.item}>
@@ -16,25 +17,57 @@ const Item = ({ title }) => (
   </View>
 );
 
-
-const ListItem = ({ id, title }: { id: number; title: string }) => (
-  <TouchableOpacity
-    onPress={() => goToScreen('BookDetails', { id, title })}
-    style={styles.listItemContainerShadow}
-  >
-    <View style={styles.listItemContainer}>
-      <Typography numberOfLines={2} align="center">
-        {title}
-      </Typography>
-    </View>
-  </TouchableOpacity>
+const HeaderSection = (title: string) => (
+  <View style={styles.headerSection}>
+    <Typography size={20} numberOfLines={3} variant="bold">
+      {title}
+    </Typography>
+  </View>
 );
+
+const ListItem = (item: Character) => {
+  const state = {
+    modalVisible: false,
+  };
+
+  return (
+    <>
+      <View style={styles.listItem}>
+        <Typography size={15}>{item.name}</Typography>
+        <DefaultButton
+          onPress={() => {
+            state.modalVisible = true;
+          }}
+          text="+"
+          textSize={15}
+          additionalStyle={{ position: 'absolute', right: 1, width: 20, height: 20, marginTop: 0 }} />
+      </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={state.modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          state.modalVisible = !state.modalVisible;
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => (state.modalVisible = !state.modalVisible)}
+            >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+    </>
+  );
+};
 
 const flatlistKeyExtractor = (item: AgrupedList, index: number) => `${item.title}+${index}`;
-
-const renderFlatlistItem = ({ item }: { item: Character }) => (
-  <ListItem id={item.id} title={item.name} />
-);
 
 interface AgrupedList {
   title: string;
@@ -44,13 +77,10 @@ interface AgrupedList {
 const CharacterScreen = () => {
   const [refreshFlag, setRefreshFlag] = useState<boolean>(false);
   const { characters, loading, errorOccurred } = useCharactersData(refreshFlag);
-  const [ refresh, setRefres] = useState<boolean>(false);
+  const [refresh, setRefres] = useState<boolean>(false);
+  const [mainCharacters, setMaincharacters] = useState<AgrupedList[]>([]);
 
   const netInfo = useNetInfo();
-
-  const toggleRefreshFlag = useCallback(() => {
-    setRefreshFlag(!refreshFlag);
-  }, [refreshFlag]);
 
   if (!netInfo.isConnected) {
     return (
@@ -96,16 +126,18 @@ const CharacterScreen = () => {
     }
   });
 
-  let mainCharacters: AgrupedList[] = [];
+  //let mainCharacters: AgrupedList[] = [];
 
   const changeArrange = (index: number) => {
     switch (index) {
       case 1:
-        mainCharacters = mainCharactersBySpecie;
+        //mainCharacters = mainCharactersBySpecie;
+        setMaincharacters(mainCharactersBySpecie);
         setRefres(!refresh);
         break;
       case 2:
-        mainCharacters = mainCharactersByGroup;
+        //mainCharacters = mainCharactersByGroup;
+        setMaincharacters(mainCharactersByGroup);
         setRefres(!refresh);
         break;
     }
@@ -126,31 +158,30 @@ const CharacterScreen = () => {
     <>
       <DefaultHeader showBackButton={false} showImage={true} />
       <View style={styles.mainContainer}>
+        <Separator size={20} />
         <Typography size={25} variant="bold" color={colors.primaryColor}>
           MAIN CHARACTERS
         </Typography>
-        <Separator size={20} />
+        <Separator size={10} />
         <Typography size={17} variant="bold" color={colors.primaryColor}>
           Arranged by:
         </Typography>
-        <DefaultButton onPress={() => changeArrange(1)} text="Specie" />
-        <DefaultButton onPress={() => changeArrange(2)} text="Group" />
+        <View style={styles.buttons}>
+          <DefaultButton onPress={() => changeArrange(1)} text="Specie" />
+          <Separator isHorizontal size={20} />
+          <DefaultButton onPress={() => changeArrange(2)} text="Group" />
+        </View>
         <Separator size={20} />
-        <SectionList
-          sections={mainCharacters}
-          keyExtractor={flatlistKeyExtractor}
-          renderItem={({ item }) => <Item title={item.name} />}
-          renderSectionHeader={({ section: { title } }) => (
-            <Text style={styles.header}>{title}</Text>
-          )}
-          refreshing={loading}
-          ListEmptyComponent={
-            <Typography size={30} variant="bold" color={colors.primaryColor}>
-              Lista Vacia
-            </Typography>
-          }
-          extraData={refresh}
-        />
+        <View style={styles.sectionList}>
+          <SectionList
+            sections={mainCharacters}
+            keyExtractor={flatlistKeyExtractor}
+            renderItem={({ item }) => ListItem(item)}
+            renderSectionHeader={({ section: { title } }) => HeaderSection(title)}
+            refreshing={loading}
+            extraData={refresh}
+          />
+        </View>
       </View>
     </>
   );

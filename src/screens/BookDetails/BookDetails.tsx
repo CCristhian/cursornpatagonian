@@ -43,7 +43,6 @@ const BookDetailsScreen = ({ route }) => {
   const reducer = (previousValue, currentValue) => previousValue + ', ' + currentValue;
 
   const otherBooks = Book.otherBooks.filter((book: Book) => Book.title !== book.title);
-  console.log(otherBooks);
 
   return (
     <>

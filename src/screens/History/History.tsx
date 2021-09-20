@@ -1,25 +1,25 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Image, ImageBackground, View } from 'react-native';
 
-import { DefaultButton, DefaultHeader, Separator, Typography } from '../../components';
+import { DefaultHeader, Separator, Typography } from '../../components';
 import styles from './styles';
 
-import { goToScreen, resetNavigation } from '../../navigation/controls';
-
-const goToExperimentalScreen = () => {
-  goToScreen('Experimental');
-};
+import construction from '../../assets/images/construction.png';
+import logo from '../../assets/images/hp_logo.png';
+import { colors } from '../../utils/theme';
 
 const HistoryScreen = () => {
   return (
     <>
-      <DefaultHeader title="History" showBackButton={false} />
+      <DefaultHeader showBackButton={false} showImage={true} />
       <View style={styles.mainContainer}>
-        <Typography size={20}>History Screen</Typography>
+        <Typography size={25} variant="bold" color={colors.primaryColor}>
+          SCREEN UNDER CONSTRUCTION
+        </Typography>
         <Separator size={10} />
-        <DefaultButton text="Go To Experimental Screen" onPress={goToExperimentalScreen} />
-        <Separator size={10} />
-        <DefaultButton variant="secondary" text="Log Out" onPress={resetNavigation} />
+        <ImageBackground source={construction} style={styles.image}>
+          <Image source={logo} style={styles.logo} />
+        </ImageBackground>
       </View>
     </>
   );
