@@ -6,18 +6,18 @@ const styles = StyleSheet.create({
   mainContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.mainOrange,
     height: 50,
     marginTop: 10,
-    width: '80%',
+    width: '40%',
+    borderRadius: 20,
   },
   primary: {
-    backgroundColor: colors.mainOrange,
+    backgroundColor: colors.primaryColor,
     color: 'white',
   },
   secondary: {
     backgroundColor: 'white',
-    color: colors.mainOrange,
+    color: colors.secondaryColor,
   },
 });
 

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   image: {
-    width: '42%',
+    height: '100%',
     borderRadius: 30,
     aspectRatio: 0.64,
   },
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   sinopsys: {
+    marginTop: 2,
     backgroundColor: colors.white,
     padding: 15,
     height: '17%',

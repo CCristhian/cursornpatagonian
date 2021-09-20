@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, ViewStyle } from 'react-native';
+import { Typography } from '..';
 import { colors } from '../../utils/theme';
 
 import styles from './styles';
@@ -25,14 +26,16 @@ const DefaultButton = ({
       style={[styles.mainContainer, additionalStyle, styles[variant]]}
       onPress={onPress}
     >
-      <Text style={[{ fontSize: textSize }, { color: 'white' }, styles[variant]]}>{text}</Text>
+      <Typography size={textSize} color={colors.white} variant="bold">
+        {text}
+      </Typography>
     </TouchableOpacity>
   );
 };
 
 DefaultButton.defaultProps = {
   additionalStyle: {},
-  color: colors.mainOrange,
+  color: colors.primaryColor,
   textSize: 14,
   variant: 'primary',
 };

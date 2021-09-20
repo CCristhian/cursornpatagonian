@@ -34,7 +34,6 @@ const BooksScreen = () => {
 
   let expandedBooks = books;
   books.map((book) => (book.otherBooks = expandedBooks));
-  console.log(books[0].otherBooks);
 
   const filteredBooks = books.filter((book) =>
     book.title.toLowerCase().includes(inputText.toLowerCase()),

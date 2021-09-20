@@ -21,7 +21,7 @@ const checkIfUserIsLoggedIn = async () => {
     if (value !== null && value === 'true') {
       goToMainTabs();
     } else {
-      replaceRoute('AuthStack');
+      replaceRoute('TabNavigator');
     }
   } catch (error) {
     console.log('Error getting userLoggedInFlag', error);
